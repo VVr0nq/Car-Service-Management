@@ -18,7 +18,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200">
                 </ColumnDefinition>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="500"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -28,6 +28,8 @@
                 <RowDefinition/>
 
             </Grid.RowDefinitions>
+            <Image Grid.Column="1" Grid.Row="1">
+            </Image>
 
             <TextBlock Text="Cars Services"
                    VerticalAlignment="Center"
@@ -35,9 +37,9 @@
                    Foreground="White"
                    FontSize="22"
                    Margin="20,0,0,0"/>
-            
+
             <StackPanel Grid.Row="1">
-                
+
                 <RadioButton Content="Cars"                           
                              Height="50"
                              Foreground="White"
@@ -59,14 +61,6 @@
                              FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
-
-            <TextBlock
-                       Width="250"
-                       Height="40"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       Margin="5"
-                       Grid.Column="1"/>
         </Grid>
     </Border>
 </Window>
