@@ -24,5 +24,25 @@ namespace ProjektProgramowanie
         {
             InitializeComponent();
         }
+
+        private void EmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CarsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClientsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
