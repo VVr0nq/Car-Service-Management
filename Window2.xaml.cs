@@ -39,18 +39,25 @@ namespace ProjektProgramowanie
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            int pesel = 0;
             if (NameAuto.Text == "" || ModelAuto.Text == "" || nrSilnikaAuto.Text == "" || PeselAuto.Text == "" || VINAuto.Text == "")
             {
                 MessageBox.Show("brak danych");
             }
             else
             {
-                if(int.TryParse(PeselAuto.Text,out pesel))
-                {
                     CarServicesEntities db = new CarServicesEntities();
+                    samochody auto = new samochody()
+                    {
+                        VIN = VINAuto.Text.ToUpper(),
+                        marka = NameAuto.Text,
+                        model = ModelAuto.Text,
+                        nrSilnika = nrSilnikaAuto.Text,
+                        peselWlasciciela = PeselAuto.Text
+                    };
+                  db.samochodies.Add(auto);
+                    db.SaveChanges();
 
-                }
+
             }
             
         }
