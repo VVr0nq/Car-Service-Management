@@ -22,6 +22,7 @@ namespace ProjektProgramowanie
         public Window4()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
     }
 }

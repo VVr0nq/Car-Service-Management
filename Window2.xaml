@@ -42,19 +42,19 @@
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Click="Add"
+                             Click="Add_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Remove"                           
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Click="Remove"
+                             Click="Remove_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Back"                           
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Click="Back"
+                             Click="Back_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
             <StackPanel Grid.Row="2" 
@@ -62,7 +62,7 @@
                 <Button Height="30" 
                         Width="85" 
                         HorizontalAlignment="Left" 
-                        Click="Aktualizuj">
+                        Click="Aktualizuj_Click">
                     Aktualizuj Baze
                 </Button>
                 <DataGrid Name="Cars" 

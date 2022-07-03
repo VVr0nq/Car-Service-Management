@@ -23,6 +23,7 @@ namespace ProjektProgramowanie
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void EmployeeButton_Click(object sender, RoutedEventArgs e)

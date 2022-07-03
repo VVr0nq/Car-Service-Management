@@ -22,9 +22,45 @@ namespace ProjektProgramowanie
         public Window2()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             CarServicesEntities db = new CarServicesEntities();
+            var a = from f in db.samochodies
+                    select new
+                    {
+                        f.VIN,
+                        f.marka,
+                        f.model,
+                        f.nrSilnika,
+                        f.peselWlasciciela
+                    };
+            this.Cars.ItemsSource = a.ToList();
+
 
         }
-        
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 win = new Window2();
+            this.Close();
+            win.Show();
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow win = new MainWindow();
+            this.Close();
+            win.Show();
+        }
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 win = new Window2();
+            this.Close();
+            win.Show();
+        }
+        private void Aktualizuj_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 win = new Window2();
+            this.Close();
+            win.Show();
+        }
+
     }
 }
