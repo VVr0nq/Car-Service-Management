@@ -129,6 +129,7 @@
                    Content="Pesel"
                    Margin="0,80,0,0"/>
             <TextBox Name="PeselAuto" 
+                         MaxLength="11"
                          Grid.Row="1" 
                          Grid.Column="1"  
                          Height="25" 

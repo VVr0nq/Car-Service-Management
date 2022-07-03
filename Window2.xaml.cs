@@ -39,9 +39,20 @@ namespace ProjektProgramowanie
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            Window2 win = new Window2();
-            this.Close();
-            win.Show();
+            int pesel = 0;
+            if (NameAuto.Text == "" || ModelAuto.Text == "" || nrSilnikaAuto.Text == "" || PeselAuto.Text == "" || VINAuto.Text == "")
+            {
+                MessageBox.Show("brak danych");
+            }
+            else
+            {
+                if(int.TryParse(PeselAuto.Text,out pesel))
+                {
+                    CarServicesEntities db = new CarServicesEntities();
+
+                }
+            }
+            
         }
         private void Back_Click(object sender, RoutedEventArgs e)
         {
@@ -61,6 +72,7 @@ namespace ProjektProgramowanie
             this.Close();
             win.Show();
         }
+
 
     }
 }
