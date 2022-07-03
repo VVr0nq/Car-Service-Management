@@ -83,7 +83,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="adresyZamieszkania.cs">
-      <DependentUpon>CarServiceModel.tt</DependentUpon>
+      <DependentUpon>Projekt.tt</DependentUpon>
     </Compile>
     <Compile Include="CarServiceModel.cs">
       <AutoGen>True</AutoGen>
@@ -91,22 +91,37 @@
       <DependentUpon>CarServiceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="czynnosci.cs">
-      <DependentUpon>CarServiceModel.tt</DependentUpon>
+      <DependentUpon>Projekt.tt</DependentUpon>
     </Compile>
     <Compile Include="klienci.cs">
-      <DependentUpon>CarServiceModel.tt</DependentUpon>
+      <DependentUpon>Projekt.tt</DependentUpon>
     </Compile>
     <Compile Include="Klient.cs">
-      <DependentUpon>CarServiceModel.tt</DependentUpon>
+      <DependentUpon>Projekt.tt</DependentUpon>
     </Compile>
     <Compile Include="pracownicy.cs">
-      <DependentUpon>CarServiceModel.tt</DependentUpon>
+      <DependentUpon>Projekt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Projekt.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Projekt.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Projekt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Projekt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Projekt.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Projekt.edmx</DependentUpon>
     </Compile>
     <Compile Include="samochody.cs">
-      <DependentUpon>CarServiceModel.tt</DependentUpon>
+      <DependentUpon>Projekt.tt</DependentUpon>
     </Compile>
     <Compile Include="uslugi.cs">
-      <DependentUpon>CarServiceModel.tt</DependentUpon>
+      <DependentUpon>Projekt.tt</DependentUpon>
     </Compile>
     <Compile Include="Window2.xaml.cs">
       <DependentUpon>Window2.xaml</DependentUpon>
@@ -189,6 +204,13 @@
       <DependentUpon>CarServiceModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <EntityDeploy Include="Projekt.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Projekt.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Projekt.edmx.diagram">
+      <DependentUpon>Projekt.edmx</DependentUpon>
+    </None>
     <None Include="Properties\DataSources\adresyZamieszkania.datasource" />
     <None Include="Properties\DataSources\App.datasource" />
     <None Include="Properties\DataSources\CarServicesEntities.datasource" />
@@ -197,6 +219,7 @@
     <None Include="Properties\DataSources\Klient.datasource" />
     <None Include="Properties\DataSources\MainWindow.datasource" />
     <None Include="Properties\DataSources\pracownicy.datasource" />
+    <None Include="Properties\DataSources\ProjektEntities.datasource" />
     <None Include="Properties\DataSources\ProjektProgramowanie.Properties.Resources.datasource" />
     <None Include="Properties\DataSources\ProjektProgramowanie.Properties.Settings.datasource" />
     <None Include="Properties\DataSources\samochody.datasource" />
@@ -235,6 +258,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CarServiceModel.edmx</DependentUpon>
       <LastGenOutput>CarServiceModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Projekt.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Projekt.edmx</DependentUpon>
+      <LastGenOutput>Projekt.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Projekt.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Projekt.edmx</DependentUpon>
+      <LastGenOutput>Projekt.cs</LastGenOutput>
     </Content>
     <Resource Include="image\auto1.png" />
     <Resource Include="image\cs1.jpg" />

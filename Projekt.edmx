@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjektModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="adresyZamieszkania">
+          <Key>
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="PESEL" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="miejscowosc" Type="nvarchar" MaxLength="30" />
+          <Property Name="ulica/aleja" Type="nvarchar" MaxLength="30" />
+          <Property Name="nrBudynku" Type="varchar" MaxLength="6" />
+          <Property Name="nrMieszkania" Type="varchar" MaxLength="6" />
+          <Property Name="kodPocztowy" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="czynnosci">
+          <Key>
+            <PropertyRef Name="idCzynnosci" />
+            <PropertyRef Name="idUslugi" />
+          </Key>
+          <Property Name="idCzynnosci" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="czasWykonania" Type="real" Nullable="false" />
+          <Property Name="idUslugi" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="czynnosci_pracownicy">
+          <Key>
+            <PropertyRef Name="idPracownika" />
+            <PropertyRef Name="idCzynnosci" />
+            <PropertyRef Name="idUslugi" />
+          </Key>
+          <Property Name="idPracownika" Type="int" Nullable="false" />
+          <Property Name="idCzynnosci" Type="bigint" Nullable="false" />
+          <Property Name="idUslugi" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="klienci">
+          <Key>
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="PESEL" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="imie" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="nazwisko" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="nrTelefonu" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="id_Klienta" />
+          </Key>
+          <Property Name="id_Klienta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="adres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pesel" Type="decimal" Precision="11" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pracownicy">
+          <Key>
+            <PropertyRef Name="idPracownika" />
+          </Key>
+          <Property Name="idPracownika" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PESEL" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="nazwisko" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="nrTelefonu" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dataZatrudnienia" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="samochody">
+          <Key>
+            <PropertyRef Name="VIN" />
+          </Key>
+          <Property Name="VIN" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="marka" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="nrSilnika" Type="nvarchar" MaxLength="30" />
+          <Property Name="peselWlasciciela" Type="varchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="uslugi">
+          <Key>
+            <PropertyRef Name="idUslugi" />
+          </Key>
+          <Property Name="idUslugi" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kwotaDoZaplaty" Type="smallmoney" />
+          <Property Name="dataPrzyjeciaSamochodu" Type="smalldatetime" Nullable="false" />
+          <Property Name="dataOdbioruSamochodu" Type="smalldatetime" />
+          <Property Name="peselKlienta" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="idPracownika" Type="int" Nullable="false" />
+          <Property Name="VIN" Type="varchar" MaxLength="17" Nullable="false" />
+        </EntityType>
+        <Association Name="DefiniujeCzynnosc">
+          <End Role="czynnosci" Type="Self.czynnosci" Multiplicity="1" />
+          <End Role="czynnosci_pracownicy" Type="Self.czynnosci_pracownicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="czynnosci">
+              <PropertyRef Name="idCzynnosci" />
+              <PropertyRef Name="idUslugi" />
+            </Principal>
+            <Dependent Role="czynnosci_pracownicy">
+              <PropertyRef Name="idCzynnosci" />
+              <PropertyRef Name="idUslugi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DefiniujePracownika">
+          <End Role="pracownicy" Type="Self.pracownicy" Multiplicity="1" />
+          <End Role="czynnosci_pracownicy" Type="Self.czynnosci_pracownicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pracownicy">
+              <PropertyRef Name="idPracownika" />
+            </Principal>
+            <Dependent Role="czynnosci_pracownicy">
+              <PropertyRef Name="idPracownika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Odpowiada">
+          <End Role="pracownicy" Type="Self.pracownicy" Multiplicity="1" />
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pracownicy">
+              <PropertyRef Name="idPracownika" />
+            </Principal>
+            <Dependent Role="uslugi">
+              <PropertyRef Name="idPracownika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PosiadaAdres">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="adresyZamieszkania" Type="Self.adresyZamieszkania" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="adresyZamieszkania">
+              <PropertyRef Name="PESEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PosiadaPojazd">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="0..1" />
+          <End Role="samochody" Type="Self.samochody" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="samochody">
+              <PropertyRef Name="peselWlasciciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Przypisana">
+          <End Role="samochody" Type="Self.samochody" Multiplicity="1" />
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="samochody">
+              <PropertyRef Name="VIN" />
+            </Principal>
+            <Dependent Role="uslugi">
+              <PropertyRef Name="VIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SkladaSie">
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="1" />
+          <End Role="czynnosci" Type="Self.czynnosci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uslugi">
+              <PropertyRef Name="idUslugi" />
+            </Principal>
+            <Dependent Role="czynnosci">
+              <PropertyRef Name="idUslugi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zleca">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="1" />
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="uslugi">
+              <PropertyRef Name="peselKlienta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjektModelStoreContainer">
+          <EntitySet Name="adresyZamieszkania" EntityType="Self.adresyZamieszkania" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="czynnosci" EntityType="Self.czynnosci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="czynnosci_pracownicy" EntityType="Self.czynnosci_pracownicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="klienci" EntityType="Self.klienci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Klient" EntityType="Self.Klient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pracownicy" EntityType="Self.pracownicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="samochody" EntityType="Self.samochody" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uslugi" EntityType="Self.uslugi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="DefiniujeCzynnosc" Association="Self.DefiniujeCzynnosc">
+            <End Role="czynnosci" EntitySet="czynnosci" />
+            <End Role="czynnosci_pracownicy" EntitySet="czynnosci_pracownicy" />
+          </AssociationSet>
+          <AssociationSet Name="DefiniujePracownika" Association="Self.DefiniujePracownika">
+            <End Role="pracownicy" EntitySet="pracownicy" />
+            <End Role="czynnosci_pracownicy" EntitySet="czynnosci_pracownicy" />
+          </AssociationSet>
+          <AssociationSet Name="Odpowiada" Association="Self.Odpowiada">
+            <End Role="pracownicy" EntitySet="pracownicy" />
+            <End Role="uslugi" EntitySet="uslugi" />
+          </AssociationSet>
+          <AssociationSet Name="PosiadaAdres" Association="Self.PosiadaAdres">
+            <End Role="klienci" EntitySet="klienci" />
+            <End Role="adresyZamieszkania" EntitySet="adresyZamieszkania" />
+          </AssociationSet>
+          <AssociationSet Name="PosiadaPojazd" Association="Self.PosiadaPojazd">
+            <End Role="klienci" EntitySet="klienci" />
+            <End Role="samochody" EntitySet="samochody" />
+          </AssociationSet>
+          <AssociationSet Name="Przypisana" Association="Self.Przypisana">
+            <End Role="samochody" EntitySet="samochody" />
+            <End Role="uslugi" EntitySet="uslugi" />
+          </AssociationSet>
+          <AssociationSet Name="SkladaSie" Association="Self.SkladaSie">
+            <End Role="uslugi" EntitySet="uslugi" />
+            <End Role="czynnosci" EntitySet="czynnosci" />
+          </AssociationSet>
+          <AssociationSet Name="Zleca" Association="Self.Zleca">
+            <End Role="klienci" EntitySet="klienci" />
+            <End Role="uslugi" EntitySet="uslugi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjektModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="adresyZamieszkania">
+          <Key>
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="PESEL" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="miejscowosc" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ulica_aleja" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="nrBudynku" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="nrMieszkania" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="kodPocztowy" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="klienci" Relationship="Self.PosiadaAdres" FromRole="adresyZamieszkania" ToRole="klienci" />
+        </EntityType>
+        <EntityType Name="czynnosci">
+          <Key>
+            <PropertyRef Name="idCzynnosci" />
+            <PropertyRef Name="idUslugi" />
+          </Key>
+          <Property Name="idCzynnosci" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="czasWykonania" Type="Single" Nullable="false" />
+          <Property Name="idUslugi" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="uslugi" Relationship="Self.SkladaSie" FromRole="czynnosci" ToRole="uslugi" />
+          <NavigationProperty Name="pracownicies" Relationship="Self.czynnosci_pracownicy" FromRole="czynnosci" ToRole="pracownicy" />
+        </EntityType>
+        <EntityType Name="klienci">
+          <Key>
+            <PropertyRef Name="PESEL" />
+          </Key>
+          <Property Name="PESEL" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nrTelefonu" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="adresyZamieszkania" Relationship="Self.PosiadaAdres" FromRole="klienci" ToRole="adresyZamieszkania" />
+          <NavigationProperty Name="samochodies" Relationship="Self.PosiadaPojazd" FromRole="klienci" ToRole="samochody" />
+          <NavigationProperty Name="uslugis" Relationship="Self.Zleca" FromRole="klienci" ToRole="uslugi" />
+        </EntityType>
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="id_Klienta" />
+          </Key>
+          <Property Name="id_Klienta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pesel" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pracownicy">
+          <Key>
+            <PropertyRef Name="idPracownika" />
+          </Key>
+          <Property Name="idPracownika" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PESEL" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nrTelefonu" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dataZatrudnienia" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="uslugis" Relationship="Self.Odpowiada" FromRole="pracownicy" ToRole="uslugi" />
+          <NavigationProperty Name="czynnoscis" Relationship="Self.czynnosci_pracownicy" FromRole="pracownicy" ToRole="czynnosci" />
+        </EntityType>
+        <EntityType Name="samochody">
+          <Key>
+            <PropertyRef Name="VIN" />
+          </Key>
+          <Property Name="VIN" Type="String" MaxLength="17" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="marka" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nrSilnika" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="peselWlasciciela" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="klienci" Relationship="Self.PosiadaPojazd" FromRole="samochody" ToRole="klienci" />
+          <NavigationProperty Name="uslugis" Relationship="Self.Przypisana" FromRole="samochody" ToRole="uslugi" />
+        </EntityType>
+        <EntityType Name="uslugi">
+          <Key>
+            <PropertyRef Name="idUslugi" />
+          </Key>
+          <Property Name="idUslugi" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kwotaDoZaplaty" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="dataPrzyjeciaSamochodu" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dataOdbioruSamochodu" Type="DateTime" Precision="0" />
+          <Property Name="peselKlienta" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPracownika" Type="Int32" Nullable="false" />
+          <Property Name="VIN" Type="String" MaxLength="17" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="czynnoscis" Relationship="Self.SkladaSie" FromRole="uslugi" ToRole="czynnosci" />
+          <NavigationProperty Name="klienci" Relationship="Self.Zleca" FromRole="uslugi" ToRole="klienci" />
+          <NavigationProperty Name="pracownicy" Relationship="Self.Odpowiada" FromRole="uslugi" ToRole="pracownicy" />
+          <NavigationProperty Name="samochody" Relationship="Self.Przypisana" FromRole="uslugi" ToRole="samochody" />
+        </EntityType>
+        <Association Name="PosiadaAdres">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="adresyZamieszkania" Type="Self.adresyZamieszkania" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="adresyZamieszkania">
+              <PropertyRef Name="PESEL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SkladaSie">
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="1" />
+          <End Role="czynnosci" Type="Self.czynnosci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uslugi">
+              <PropertyRef Name="idUslugi" />
+            </Principal>
+            <Dependent Role="czynnosci">
+              <PropertyRef Name="idUslugi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PosiadaPojazd">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="0..1" />
+          <End Role="samochody" Type="Self.samochody" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="samochody">
+              <PropertyRef Name="peselWlasciciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zleca">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="1" />
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="PESEL" />
+            </Principal>
+            <Dependent Role="uslugi">
+              <PropertyRef Name="peselKlienta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Odpowiada">
+          <End Role="pracownicy" Type="Self.pracownicy" Multiplicity="1" />
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pracownicy">
+              <PropertyRef Name="idPracownika" />
+            </Principal>
+            <Dependent Role="uslugi">
+              <PropertyRef Name="idPracownika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Przypisana">
+          <End Role="samochody" Type="Self.samochody" Multiplicity="1" />
+          <End Role="uslugi" Type="Self.uslugi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="samochody">
+              <PropertyRef Name="VIN" />
+            </Principal>
+            <Dependent Role="uslugi">
+              <PropertyRef Name="VIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="czynnosci_pracownicy">
+          <End Role="czynnosci" Type="Self.czynnosci" Multiplicity="*" />
+          <End Role="pracownicy" Type="Self.pracownicy" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ProjektEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="adresyZamieszkanias" EntityType="Self.adresyZamieszkania" />
+          <EntitySet Name="czynnoscis" EntityType="Self.czynnosci" />
+          <EntitySet Name="kliencis" EntityType="Self.klienci" />
+          <EntitySet Name="Klients" EntityType="Self.Klient" />
+          <EntitySet Name="pracownicies" EntityType="Self.pracownicy" />
+          <EntitySet Name="samochodies" EntityType="Self.samochody" />
+          <EntitySet Name="uslugis" EntityType="Self.uslugi" />
+          <AssociationSet Name="PosiadaAdres" Association="Self.PosiadaAdres">
+            <End Role="klienci" EntitySet="kliencis" />
+            <End Role="adresyZamieszkania" EntitySet="adresyZamieszkanias" />
+          </AssociationSet>
+          <AssociationSet Name="SkladaSie" Association="Self.SkladaSie">
+            <End Role="uslugi" EntitySet="uslugis" />
+            <End Role="czynnosci" EntitySet="czynnoscis" />
+          </AssociationSet>
+          <AssociationSet Name="PosiadaPojazd" Association="Self.PosiadaPojazd">
+            <End Role="klienci" EntitySet="kliencis" />
+            <End Role="samochody" EntitySet="samochodies" />
+          </AssociationSet>
+          <AssociationSet Name="Zleca" Association="Self.Zleca">
+            <End Role="klienci" EntitySet="kliencis" />
+            <End Role="uslugi" EntitySet="uslugis" />
+          </AssociationSet>
+          <AssociationSet Name="Odpowiada" Association="Self.Odpowiada">
+            <End Role="pracownicy" EntitySet="pracownicies" />
+            <End Role="uslugi" EntitySet="uslugis" />
+          </AssociationSet>
+          <AssociationSet Name="Przypisana" Association="Self.Przypisana">
+            <End Role="samochody" EntitySet="samochodies" />
+            <End Role="uslugi" EntitySet="uslugis" />
+          </AssociationSet>
+          <AssociationSet Name="czynnosci_pracownicy" Association="Self.czynnosci_pracownicy">
+            <End Role="czynnosci" EntitySet="czynnoscis" />
+            <End Role="pracownicy" EntitySet="pracownicies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjektModelStoreContainer" CdmEntityContainer="ProjektEntities">
+          <EntitySetMapping Name="adresyZamieszkanias">
+            <EntityTypeMapping TypeName="ProjektModel.adresyZamieszkania">
+              <MappingFragment StoreEntitySet="adresyZamieszkania">
+                <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+                <ScalarProperty Name="miejscowosc" ColumnName="miejscowosc" />
+                <ScalarProperty Name="ulica_aleja" ColumnName="ulica/aleja" />
+                <ScalarProperty Name="nrBudynku" ColumnName="nrBudynku" />
+                <ScalarProperty Name="nrMieszkania" ColumnName="nrMieszkania" />
+                <ScalarProperty Name="kodPocztowy" ColumnName="kodPocztowy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="czynnoscis">
+            <EntityTypeMapping TypeName="ProjektModel.czynnosci">
+              <MappingFragment StoreEntitySet="czynnosci">
+                <ScalarProperty Name="idCzynnosci" ColumnName="idCzynnosci" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="czasWykonania" ColumnName="czasWykonania" />
+                <ScalarProperty Name="idUslugi" ColumnName="idUslugi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kliencis">
+            <EntityTypeMapping TypeName="ProjektModel.klienci">
+              <MappingFragment StoreEntitySet="klienci">
+                <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="nrTelefonu" ColumnName="nrTelefonu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Klients">
+            <EntityTypeMapping TypeName="ProjektModel.Klient">
+              <MappingFragment StoreEntitySet="Klient">
+                <ScalarProperty Name="id_Klienta" ColumnName="id_Klienta" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="pesel" ColumnName="pesel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pracownicies">
+            <EntityTypeMapping TypeName="ProjektModel.pracownicy">
+              <MappingFragment StoreEntitySet="pracownicy">
+                <ScalarProperty Name="idPracownika" ColumnName="idPracownika" />
+                <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="nrTelefonu" ColumnName="nrTelefonu" />
+                <ScalarProperty Name="dataZatrudnienia" ColumnName="dataZatrudnienia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="samochodies">
+            <EntityTypeMapping TypeName="ProjektModel.samochody">
+              <MappingFragment StoreEntitySet="samochody">
+                <ScalarProperty Name="VIN" ColumnName="VIN" />
+                <ScalarProperty Name="marka" ColumnName="marka" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="nrSilnika" ColumnName="nrSilnika" />
+                <ScalarProperty Name="peselWlasciciela" ColumnName="peselWlasciciela" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uslugis">
+            <EntityTypeMapping TypeName="ProjektModel.uslugi">
+              <MappingFragment StoreEntitySet="uslugi">
+                <ScalarProperty Name="idUslugi" ColumnName="idUslugi" />
+                <ScalarProperty Name="kwotaDoZaplaty" ColumnName="kwotaDoZaplaty" />
+                <ScalarProperty Name="dataPrzyjeciaSamochodu" ColumnName="dataPrzyjeciaSamochodu" />
+                <ScalarProperty Name="dataOdbioruSamochodu" ColumnName="dataOdbioruSamochodu" />
+                <ScalarProperty Name="peselKlienta" ColumnName="peselKlienta" />
+                <ScalarProperty Name="idPracownika" ColumnName="idPracownika" />
+                <ScalarProperty Name="VIN" ColumnName="VIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="czynnosci_pracownicy" TypeName="ProjektModel.czynnosci_pracownicy" StoreEntitySet="czynnosci_pracownicy">
+            <EndProperty Name="czynnosci">
+              <ScalarProperty Name="idCzynnosci" ColumnName="idCzynnosci" />
+              <ScalarProperty Name="idUslugi" ColumnName="idUslugi" />
+            </EndProperty>
+            <EndProperty Name="pracownicy">
+              <ScalarProperty Name="idPracownika" ColumnName="idPracownika" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

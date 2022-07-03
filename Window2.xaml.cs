@@ -45,7 +45,7 @@ namespace ProjektProgramowanie
             }
             else
             {
-                    CarServicesEntities db = new CarServicesEntities();
+                   ProjektEntities db = new ProjektEntities();
                     samochody auto = new samochody()
                     {
                         VIN = VINAuto.Text.ToUpper(),
@@ -54,8 +54,8 @@ namespace ProjektProgramowanie
                         nrSilnika = nrSilnikaAuto.Text,
                         peselWlasciciela = PeselAuto.Text
                     };
-                  db.samochodies.Add(auto);
-                    db.SaveChanges();
+                       db.samochodies.Add(auto);
+                       db.SaveChanges();
 
 
             }
