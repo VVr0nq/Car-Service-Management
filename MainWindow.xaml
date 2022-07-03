@@ -28,8 +28,6 @@
                 <RowDefinition/>
 
             </Grid.RowDefinitions>
-            <Image Grid.Column="1" Grid.Row="1">
-            </Image>
 
             <TextBlock Text="Cars Services"
                    VerticalAlignment="Center"
@@ -44,22 +42,29 @@
                              Height="50"
                              Foreground="White"
                              FontSize="20"
+                             Click="Cars_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Employee"                           
                              Height="50"
                              Foreground="White"
                              FontSize="20"
+                             Click="Employee_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Clients"                           
                              Height="50"
                              Foreground="White"
                              FontSize="20"
+                              Click="Client_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
                 <RadioButton Content="Repairs"                           
                              Height="50"
                              Foreground="White"
                              FontSize="20"
+                              Click="Repairs_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+                <Image Source="C:\Users\arekm\source\repos\ProjektProgramowanie\image\auto1.png"/>
             </StackPanel>
         </Grid>
     </Border>

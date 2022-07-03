@@ -44,5 +44,29 @@ namespace ProjektProgramowanie
         {
 
         }
+        private void Cars_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 win = new Window2();
+            this.Close();
+            win.Show();
+        }
+        private void Employee_Click(object sender, RoutedEventArgs e)
+        {
+            Window3 win = new Window3();
+            this.Close();
+            win.Show();
+        }
+        private void Client_Click(object sender, RoutedEventArgs e)
+        {
+            Window4 win = new Window4();
+            this.Close();
+            win.Show();
+        }
+        private void Repairs_Click(object sender, RoutedEventArgs e)
+        {
+            Window5 win = new Window5();
+            this.Close();
+            win.Show();
+        }
     }
 }

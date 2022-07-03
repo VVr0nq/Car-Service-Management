@@ -108,6 +108,18 @@
     <Compile Include="uslugi.cs">
       <DependentUpon>CarServiceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Window2.xaml.cs">
+      <DependentUpon>Window2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window3.xaml.cs">
+      <DependentUpon>Window3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window4.xaml.cs">
+      <DependentUpon>Window4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window5.xaml.cs">
+      <DependentUpon>Window5.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +143,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MenuButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window5.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,6 +189,22 @@
       <DependentUpon>CarServiceModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\adresyZamieszkania.datasource" />
+    <None Include="Properties\DataSources\App.datasource" />
+    <None Include="Properties\DataSources\CarServicesEntities.datasource" />
+    <None Include="Properties\DataSources\czynnosci.datasource" />
+    <None Include="Properties\DataSources\klienci.datasource" />
+    <None Include="Properties\DataSources\Klient.datasource" />
+    <None Include="Properties\DataSources\MainWindow.datasource" />
+    <None Include="Properties\DataSources\pracownicy.datasource" />
+    <None Include="Properties\DataSources\ProjektProgramowanie.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\ProjektProgramowanie.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\samochody.datasource" />
+    <None Include="Properties\DataSources\uslugi.datasource" />
+    <None Include="Properties\DataSources\Window2.datasource" />
+    <None Include="Properties\DataSources\Window3.datasource" />
+    <None Include="Properties\DataSources\Window4.datasource" />
+    <None Include="Properties\DataSources\Window5.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -192,6 +236,7 @@
       <DependentUpon>CarServiceModel.edmx</DependentUpon>
       <LastGenOutput>CarServiceModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="image\auto1.png" />
     <Resource Include="image\cs1.jpg" />
   </ItemGroup>
   <ItemGroup>
