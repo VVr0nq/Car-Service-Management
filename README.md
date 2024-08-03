@@ -1,4 +1,4 @@
-# **ProjektProgramowanie**
+# **Car Service Management**
 ## **Overview**
 ProjektProgramowanie is a C# project focused on developing a car service management application. It provides features for managing clients, vehicles, services, and employees, showcasing database integration using Entity Framework. The application is designed to help users efficiently track and manage car service operations.
 
